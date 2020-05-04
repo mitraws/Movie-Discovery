@@ -16,12 +16,12 @@ export default function DiscoverMoviesPage() {
 
   const params = useParams();
 
-  console.log(params, "hi there!");
+//   console.log(params, "hi there!");
 
   const search = async (param) => {
     const val = param ? param : searchText;
 
-    console.log("Start searching for:", val);
+    // console.log("Start searching for:", val);
     // Best practice: encode the string so that special characters
     //  like '&' and '?' don't accidentally mess up the URL
 
@@ -30,8 +30,8 @@ export default function DiscoverMoviesPage() {
     const data = await Axios.get(
       `https://omdbapi.com/?apikey=a53e8892&s=${queryParam}`
     );
-    console.log("Success!", data);
-    console.warn("asdasdasd", data.data.Search);
+    // console.log("Success!", data);
+    // console.warn("asdasdasd", data.data.Search);
     if (!data.data.Search) {
       setAppState("Could not find movie");
     } else {
@@ -68,7 +68,7 @@ export default function DiscoverMoviesPage() {
           onKeyDown={e => {
             if(e.keyCode === 13){
                 search()
-              console.log('Hi, a user hit enter!')
+              // console.log('Hi, a user hit enter!')
             }
           }}
         />
@@ -78,7 +78,7 @@ export default function DiscoverMoviesPage() {
       <p>{appState}</p>
 
       {movies.map((movie) => {
-        console.log(movie);
+        // console.log(movie);
         return (
           <div className="movie" key={movie.imdbID}>
             <h4>

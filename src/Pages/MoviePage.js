@@ -9,18 +9,18 @@ export default function MoviePage() {
   const params = useParams();
   const [movie, setMovie] = useState({});
 
-  console.log("Hello from movie page, params?", params);
+  // console.log("Hello from movie page, params?", params);
 useEffect(() => {
    const fetchData = async (imdbID)  => {
-      console.log("Hello from useEffect, ID?", imdbID);
+      // console.log("Hello from useEffect, ID?", imdbID);
       const data = await axios.get(
         `https://omdbapi.com/?apikey=a53e8892&i=${imdbID}`
       );
-      console.log("Hello from data fetch, data?", data);
+      // console.log("Hello from data fetch, data?", data);
       setMovie(data.data);
     }
     fetchData(params.imdbID); 
-    console.log("Hello from asyncFunction, params.imdbID?", fetchData);
+    // console.log("Hello from asyncFunction, params.imdbID?", fetchData);
   }, []);
 
   // to not render anything until data is fetched
