@@ -36,7 +36,7 @@ export default function DiscoverMoviesPage() {
     if (!data.data.Search) {
       setAppState("Could not find movie");
     } else {
-      setAppState("Results for your search:");
+      // setAppState("Results for your search:");
       setMovies(data.data.Search);
     }
   };
