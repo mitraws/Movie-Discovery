@@ -1,25 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Title from '../Components/Title';
+import Title from "../Components/Title";
 import axios from "axios";
+import { Link } from "react-router-dom";
+
 
 export default function MoviePage() {
   const params = useParams();
-  const [movieData, setMovie] = useState();
+  const [movie, setMovie] = useState({});
 
-  console.log("Hello from movie page", params);
-  return <Title subtitle="Welcome to Movie">Hello!</Title>
+  console.log("Hello from movie page, params?", params);
 
   useEffect(() => {
-    async function fetchMovieById(imdbID) {
-      console.log("DO I HAVE ANY ID?", imdbID);
-  //     const response = await axios.get(
-  //       `http://www.omdbapi.com/?i=${imdbID}&plot=full&apikey=a53e8892`
-  //     );
-      
-  //     console.log(response.data);
-  //     setMovie(response.data);
+    async function fetchData(imdbID) {
+      console.log("Hello from useEffect, ID?", imdbID);
+      const data = await axios.get(
+        `https://omdbapi.com/?apikey=a53e8892&i=${imdbID}`
+      );
+      console.log("Hello from data fetch, data?", data);
+      setMovie(data.data);
     }
-  //   fetchMovieById(params.imdbID);
-  }, [])
+    fetchData(params.imdbID);
+    console.log("Hello from asyncFunction, params.imdbID?", fetchData);
+  }, []);
+  return (
+    <div>
+      <Title>{movie.Title} ({movie.Year})</Title>
+      <img src={movie.Poster} />
+      <p>{movie.Plot}</p>
+      <p><Link to="/discover">Search for another movie</Link></p>
+    </div>
+  );
 }

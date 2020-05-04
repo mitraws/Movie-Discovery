@@ -16,10 +16,6 @@ export default function DiscoverMoviesPage() {
   const search = async () => {
     console.log("Start searching for:", searchText);
 
-    //   useEffect(() => {
-    //   async function fetchMovies() {
-    //     console.log();
-
     // Best practice: encode the string so that special characters
     //  like '&' and '?' don't accidentally mess up the URL
     const queryParam = encodeURIComponent(searchText);
@@ -60,7 +56,8 @@ export default function DiscoverMoviesPage() {
       {movies.map((movie) => {
         console.log(movie);
         return (
-          <div key={movie.imdbID}>
+          <div className='movie'
+          key={movie.imdbID}>
             <h4>
               {movie.Title} ({movie.Year})
             </h4>
