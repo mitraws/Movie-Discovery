@@ -65,6 +65,12 @@ export default function DiscoverMoviesPage() {
         <input
           value={searchText}
           onChange={(e) => set_searchText(e.target.value)}
+          onKeyDown={e => {
+            if(e.keyCode === 13){
+                search()
+              console.log('Hi, a user hit enter!')
+            }
+          }}
         />
         <button onClick={navigateToSearch}>Search</button>
       </p>
