@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import Title from "../Components/Title";
-import { Link, useHistory, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom"
+import Sparkle from "react-sparkle"
 
 // export default function () {
 // const {movieId} = useParams()
@@ -71,7 +72,9 @@ export default function DiscoverMoviesPage() {
               // console.log('Hi, a user hit enter!')
             }
           }}
-        />
+        />      <div style={{ position: 'relative' }}>
+        <Sparkle />
+      </div>
         <button onClick={navigateToSearch}>Search</button>
       </p>
 
