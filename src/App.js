@@ -16,7 +16,7 @@ function App() {
         {/* </nav> */}
         <header className="App-header">
         <Switch>
-          <Route exact path="/Discover" component={DiscoverMoviesPage} />
+          <Route exact path="/Discover/:searchtext?" component={DiscoverMoviesPage} />
           <Route path="/moviePage/:imdbID" component={MoviePage} />
           <Route path="/AboutPage" component={AboutPage} />
           <Route exact path="/" component={HomePage} />

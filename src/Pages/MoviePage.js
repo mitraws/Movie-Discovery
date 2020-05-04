@@ -10,9 +10,8 @@ export default function MoviePage() {
   const [movie, setMovie] = useState({});
 
   console.log("Hello from movie page, params?", params);
-
-  useEffect(() => {
-    async function fetchData(imdbID) {
+useEffect(() => {
+   const fetchData = async (imdbID)  => {
       console.log("Hello from useEffect, ID?", imdbID);
       const data = await axios.get(
         `https://omdbapi.com/?apikey=a53e8892&i=${imdbID}`
@@ -20,13 +19,17 @@ export default function MoviePage() {
       console.log("Hello from data fetch, data?", data);
       setMovie(data.data);
     }
-    fetchData(params.imdbID);
+    fetchData(params.imdbID); 
     console.log("Hello from asyncFunction, params.imdbID?", fetchData);
   }, []);
+
+  // to not render anything until data is fetched
+  if (!movie.Title) { return null }
+
   return (
     <div>
       <Title>{movie.Title} ({movie.Year})</Title>
-      <img src={movie.Poster} />
+      <img src={movie.Poster} alt={movie.Title}/>
       <p>{movie.Plot}</p>
       <p><Link to="/discover">Search for another movie</Link></p>
     </div>

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import Title from "../Components/Title";
-import { Link } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 
 // export default function () {
 // const {movieId} = useParams()
@@ -12,28 +12,46 @@ export default function DiscoverMoviesPage() {
   const [searchText, set_searchText] = useState("");
   const [appState, setAppState] = useState("");
   const [movies, setMovies] = useState([]);
+  const history = useHistory();
 
-  const search = async () => {
-    console.log("Start searching for:", searchText);
+  const params = useParams();
 
+  console.log(params, "hi there!");
+
+  const search = async (param) => {
+    const val = param ? param : searchText;
+
+    console.log("Start searching for:", val);
     // Best practice: encode the string so that special characters
     //  like '&' and '?' don't accidentally mess up the URL
-    const queryParam = encodeURIComponent(searchText);
 
-    //   // Option A: use the browser-native fetch function
-    //   const data = await fetch(
-    //     `https://omdbapi.com/?apikey=b3d9013d&s=${queryParam}`
-    //   ).then(r => r.json());
-    // Option B: use the `axios` library like we did on Tuesday
+    const queryParam = encodeURIComponent(val);
     setAppState("searching ...");
     const data = await Axios.get(
       `https://omdbapi.com/?apikey=a53e8892&s=${queryParam}`
     );
     console.log("Success!", data);
-    setMovies(data.data.Search);
-    setAppState("Results for your search:");
+    console.warn("asdasdasd", data.data.Search);
+    if (!data.data.Search) {
+      setAppState("Could not find movie");
+    } else {
+      setAppState("Results for your search:");
+      setMovies(data.data.Search);
+    }
   };
-  //
+
+  const navigateToSearch = async () => {
+    const routeParam = encodeURIComponent(searchText);
+    history.push(`/discover/${routeParam}`);
+
+    search();
+  };
+
+  useEffect(() => {
+    if (params.searchtext !== undefined) {
+      search(params.searchtext);
+    }
+  }, []);
 
   if (appState === "searching ...") {
     return <h1>Searching movies...</h1>;
@@ -48,7 +66,7 @@ export default function DiscoverMoviesPage() {
           value={searchText}
           onChange={(e) => set_searchText(e.target.value)}
         />
-        <button onClick={search}>Search</button>
+        <button onClick={navigateToSearch}>Search</button>
       </p>
 
       <p>{appState}</p>
@@ -56,15 +74,14 @@ export default function DiscoverMoviesPage() {
       {movies.map((movie) => {
         console.log(movie);
         return (
-          <div className='movie'
-          key={movie.imdbID}>
+          <div className="movie" key={movie.imdbID}>
             <h4>
               {movie.Title} ({movie.Year})
             </h4>
             <p>
               <Link to={`/moviePage/${movie.imdbID}`}>View details</Link>
             </p>
-            <img src={movie.Poster} alt={movie.Title}/>
+            <img src={movie.Poster} alt={movie.Title} />
           </div>
         );
       })}

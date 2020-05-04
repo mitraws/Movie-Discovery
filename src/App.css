@@ -40,3 +40,7 @@
 .movie{
    display: inline-block;
 }
+
+a:visited {
+  color: black;
+}
