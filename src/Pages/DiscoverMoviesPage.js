@@ -60,14 +60,14 @@ export default function DiscoverMoviesPage() {
       {movies.map((movie) => {
         console.log(movie);
         return (
-          <div>
+          <div key={movie.imdbID}>
             <h4>
               {movie.Title} ({movie.Year})
             </h4>
             <p>
               <Link to={`/moviePage/${movie.imdbID}`}>View details</Link>
             </p>
-            <img src={movie.Poster} alt="Poster"/>
+            <img src={movie.Poster} alt={movie.Title}/>
           </div>
         );
       })}

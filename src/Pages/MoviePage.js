@@ -10,16 +10,16 @@ export default function MoviePage() {
   console.log("Hello from movie page", params);
   return <Title subtitle="Welcome to Movie">Hello!</Title>
 
-  // useEffect(() => {
-  //   async function fetchMovieById(imdbID) {
-  //     console.log("DO I HAVE ANY ID?", imdbID);
+  useEffect(() => {
+    async function fetchMovieById(imdbID) {
+      console.log("DO I HAVE ANY ID?", imdbID);
   //     const response = await axios.get(
   //       `http://www.omdbapi.com/?i=${imdbID}&plot=full&apikey=a53e8892`
   //     );
       
   //     console.log(response.data);
   //     setMovie(response.data);
-  //   }
+    }
   //   fetchMovieById(params.imdbID);
-  // }, [])
+  }, [])
 }
