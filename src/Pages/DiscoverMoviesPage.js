@@ -36,7 +36,7 @@ export default function DiscoverMoviesPage() {
     if (!data.data.Search) {
       setAppState("Could not find movie");
     } else {
-      // setAppState("Results for your search:");
+      setAppState("Results for your search:");
       setMovies(data.data.Search);
     }
   };
@@ -61,7 +61,9 @@ export default function DiscoverMoviesPage() {
   return (
     <div>
       <Title subtitle="Discover some movies!">Hello!</Title>
-
+      <div style={{ position: 'relative' }}>
+        <Sparkle />
+      </div>
       <p>
         <input
           value={searchText}
@@ -72,9 +74,7 @@ export default function DiscoverMoviesPage() {
               // console.log('Hi, a user hit enter!')
             }
           }}
-        />      <div style={{ position: 'relative' }}>
-        <Sparkle />
-      </div>
+        />      
         <button onClick={navigateToSearch}>Search</button>
       </p>
 
